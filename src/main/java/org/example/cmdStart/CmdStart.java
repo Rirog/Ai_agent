@@ -4,7 +4,6 @@ import lombok.SneakyThrows;
 
 import java.io.File;
 
-
 public class CmdStart {
     private final String path = System.getProperty("user.dir");
 
