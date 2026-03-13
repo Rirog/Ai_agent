@@ -6,7 +6,6 @@ import java.io.File;
 
 
 public class CmdStart {
-    private final Runtime runtime = Runtime.getRuntime();
     private final String path = System.getProperty("user.dir");
 
     @SneakyThrows
