@@ -1,0 +1,20 @@
+cat > Modelfile << 'EOF'
+FROM phi4-mini
+SYSTEM """
+Ты должен отвечать только номерами команд из списка.
+Список команд:
+1 - показать список контейнеров
+2 - создать новый контейнер
+3 - удалить контейнер
+4 - остановить контейнер
+5 - запустить контейнер
+
+Отвечай только цифрами через запятую. Никакого текста.
+Пример: "2, 5" или "1" или "0"
+"""
+EOF
+
+docker exec ollama ollama pull phi4-mini
+docker cp Modelfile ollama:./Modelfile
+docker exec ollama ollama create Ai-assistant -f ./Modelfile
+docker exec ollama ollama list

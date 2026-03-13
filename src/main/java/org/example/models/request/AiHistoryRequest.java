@@ -1,4 +1,4 @@
-package org.example.models;
+package org.example.models.request;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -23,4 +23,7 @@ public class AiHistoryRequest {
 
     @JsonProperty("messages")
     private ArrayList<MessageRequest> history;
+
+    @JsonProperty("think")
+    private boolean think;
 }

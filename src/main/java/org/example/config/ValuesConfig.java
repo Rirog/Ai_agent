@@ -3,12 +3,17 @@ package org.example.config;
 import org.aeonbits.owner.Config;
 
 @Config.Sources({"classpath:values.properties"})
-public interface ValuesService {
+public interface ValuesConfig extends Config {
 
-    @Config.Key("base.url")
-    String getBaseUrl();
+    @Key("base.url")
+    String baseUrl();
 
-    @Config.Key("ai.model")
-    String getAiModel();
+    @Key("ai.model")
+    String aiModel();
 
+    @Key("ai.model.fast")
+    String aiModelFast();
+
+    @Key("ai.model.new")
+    String aiModelNew();
 }
