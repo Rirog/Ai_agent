@@ -2,17 +2,23 @@ package org.example.cmdStart;
 
 import lombok.SneakyThrows;
 
-import java.io.IOException;
+import java.io.File;
+
 
 public class CmdStart {
     private final Runtime runtime = Runtime.getRuntime();
+    private final String path = System.getProperty("user.dir");
+    private final ProcessBuilder processBuilder = new ProcessBuilder()
+            .directory(new File(path));
 
     @SneakyThrows
     public void commitProject(String message) {
         gitAdd();
 
-        String command = "git commit -m \"" + message + "\"";
-        Process process = runtime.exec(command);
+//        String command = "git commit -m \"" + message + "\"";
+
+        processBuilder.command("git", "commit", "-m", message);
+        Process process = processBuilder.start();
 
         int exitCode = process.waitFor();
         if (exitCode == 0) {
@@ -24,9 +30,8 @@ public class CmdStart {
 
     @SneakyThrows
     public void gitAdd() {
-        String command = "git add .";
-
-        Process process = runtime.exec(command);
+        processBuilder.command("git", "add", ".");
+        Process process = processBuilder.start();
         int exitCode = process.waitFor();
 
         if (exitCode == 0) {
