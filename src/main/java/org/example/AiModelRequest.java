@@ -45,7 +45,7 @@ public class AiModelRequest {
         for (JsonNode cmd : commands) {
             switch (cmd.get("action").asText()) {
 //                case "MERGE" -> ;
-//                case "CREATE_BRANCH" -> ;
+//                case "CREATE_BRANCH" -> ; думаб
                 case "COMMIT" -> cmdStart.commitProject(cmd.get("parameters").get("message").asText());
 //                case "PUSH" -> ;
 //                case "PULL" -> ;
