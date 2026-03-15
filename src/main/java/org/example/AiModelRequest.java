@@ -51,7 +51,6 @@ public class AiModelRequest {
 //                case "PULL" -> ;
 //                case "STATUS" -> ;
 //                case "LOG" -> ;
-
             }
         }
 
