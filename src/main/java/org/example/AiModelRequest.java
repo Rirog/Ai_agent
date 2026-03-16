@@ -23,8 +23,6 @@ public class AiModelRequest {
     private final boolean stream = false;
     private final boolean think = false;
 
-
-
     @SneakyThrows
     public void getAiResponse(String model, String message) {
         AiRequest request = new AiRequest(model, message, stream, think);
