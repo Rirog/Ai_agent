@@ -9,16 +9,20 @@ public class ConfigManager {
         return factory.baseUrl();
     }
 
-    public static String getAiModel() {
-        return factory.aiModel();
-    }
-
     public static String getAiModelFast() {
         return factory.aiModelFast();
     }
 
-    public static String getAiModelNew() {
-        return  factory.aiModelNew();
+    public static String getEmailHost() {
+        return factory.emailHost();
+    }
+
+    public static String getEmailProtocol() {
+        return factory.emailProtocol();
+    }
+
+    public static String getEmailProtocolDefault() {
+        return factory.emailProtocolDefault();
     }
 
 }

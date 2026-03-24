@@ -1,4 +1,4 @@
-package org.example.models.pokaTak;
+package org.example.dto.request;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -10,10 +10,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Command {
-    @JsonProperty("action")
-    private String action;
+public class MessageRequest {
+    @JsonProperty("role")
+    private String role;
 
-    @JsonProperty("parameters")
-    private Parameter parameters;
+    @JsonProperty("content")
+    private String content;
 }

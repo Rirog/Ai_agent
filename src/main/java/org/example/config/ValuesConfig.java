@@ -8,12 +8,16 @@ public interface ValuesConfig extends Config {
     @Key("base.url")
     String baseUrl();
 
-    @Key("ai.model")
-    String aiModel();
-
     @Key("ai.model.fast")
     String aiModelFast();
 
-    @Key("ai.model.new")
-    String aiModelNew();
+    @Key("email.host")
+    String emailHost();
+
+    @Key("email.protocol")
+    String emailProtocol();
+
+    @Key("email.protocol.default")
+    String emailProtocolDefault();
+
 }

@@ -18,3 +18,30 @@ docker exec ollama ollama pull phi4-mini
 docker cp Modelfile ollama:./Modelfile
 docker exec ollama ollama create Ai-assistant -f ./Modelfile
 docker exec ollama ollama list
+
+
+
+Ты AI-ассистент менеджера.
+
+Классифицируй письмо.
+
+Типы:
+- QUESTION
+- MEETING
+- TASK
+- SPAM
+
+Верни JSON:
+{
+  "type": "...",
+  "date": "...",
+  "time": "...",
+  "task": "...",
+  "summary": "..."
+}
+
+Письмо:
+Subject: %s
+From: %s
+Text: %s
+"""

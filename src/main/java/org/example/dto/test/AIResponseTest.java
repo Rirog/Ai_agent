@@ -1,4 +1,4 @@
-package org.example.models.response;
+package org.example.dto.test;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -12,7 +12,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class AIResponse {
+public class AIResponseTest {
     @JsonProperty("model")
     private String model;
 

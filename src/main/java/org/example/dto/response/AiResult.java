@@ -1,16 +1,23 @@
-package org.example.models.pokaTak;
+package org.example.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Parameter {
-    @JsonProperty("name")
-    private String name;
+public class AiResult {
+
+    private String type;
+
+    private String date;
+
+    private String time;
+
+    private String task;
+
+    private String summary;
 }
