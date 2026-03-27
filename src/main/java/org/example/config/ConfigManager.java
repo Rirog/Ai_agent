@@ -21,8 +21,16 @@ public class ConfigManager {
         return factory.emailProtocol();
     }
 
-    public static String getEmailProtocolDefault() {
-        return factory.emailProtocolDefault();
+    public  static String getEmailFolder(){
+        return factory.emailFolder();
+    }
+
+    public  static String getEmailSmtpHost(){
+        return factory.emailSmtpHost();
+    }
+
+    public  static String getEmailSmtpPort(){
+        return factory.emailSmtpPort();
     }
 
 }

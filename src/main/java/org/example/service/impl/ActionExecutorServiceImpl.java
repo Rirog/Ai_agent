@@ -21,7 +21,8 @@ public class ActionExecutorServiceImpl implements ActionExecutorService {
     @Override
     @SneakyThrows
     public void emailMeeting(Message message, AiResult aiResult) {
-        String fileName = "meeting.txt";
+
+        String fileName = "meeting.txt";    // пока так, думаю что делать
         String separator = "---------------\n";
 
         try (FileWriter writer = new FileWriter(fileName)) {

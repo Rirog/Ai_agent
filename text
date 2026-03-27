@@ -21,27 +21,3 @@ docker exec ollama ollama list
 
 
 
-Ты AI-ассистент менеджера.
-
-Классифицируй письмо.
-
-Типы:
-- QUESTION
-- MEETING
-- TASK
-- SPAM
-
-Верни JSON:
-{
-  "type": "...",
-  "date": "...",
-  "time": "...",
-  "task": "...",
-  "summary": "..."
-}
-
-Письмо:
-Subject: %s
-From: %s
-Text: %s
-"""

@@ -53,10 +53,7 @@ public class AiController {
     @SneakyThrows
     private void workAi() {
 
-        Message[] messages = emailConfig.connectionEmail(
-                email,
-                appPassword
-        );
+        Message[] messages = emailConfig.connectionEmail();
 
         for (Message msg : messages) {
 

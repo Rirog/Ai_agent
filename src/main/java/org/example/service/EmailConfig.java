@@ -14,19 +14,22 @@ import java.util.Properties;
 @Data
 public class EmailConfig {
     private Store store;
-    private final String folder = "INBOX";
     private Folder inbox;
 
+    private final String folder = ConfigManager.getEmailFolder();
+    private final String email;
+    private final AuthEmail authEmail;
+    private final SmtpEmail smtpEmail;
 
     @SneakyThrows
-    public Message[] connectionEmail(String email, String password) {
+    public Message[] connectionEmail() {
         Properties prop = new Properties();
-        prop.put(ConfigManager.getEmailProtocolDefault(), ConfigManager.getEmailProtocol());
+        prop.put("mail.store.protocol", ConfigManager.getEmailProtocol());
 
         Session session = Session.getInstance(prop);
 
         store = session.getStore(ConfigManager.getEmailProtocol());
-        store.connect(ConfigManager.getEmailHost(), email, password);
+        authEmail.connectionEmail(store, ConfigManager.getEmailHost(), email);
 
         inbox = store.getFolder(folder);
 
@@ -46,23 +49,19 @@ public class EmailConfig {
     @SneakyThrows
     public void send(String to, String subject, String text) {
 
+        String truth = "true";
+
         to = extractEmail(to);
 
         Properties props = new Properties();
 
-        props.put("mail.smtp.auth", "true");
-        props.put("mail.smtp.starttls.enable", "true");
-        props.put("mail.smtp.host", "smtp.gmail.com");
-        props.put("mail.smtp.port", "587");
+        props.put("mail.smtp.auth", truth);
+        props.put("mail.smtp.starttls.enable", truth);
+        props.put("mail.smtp.host", ConfigManager.getEmailSmtpHost());
+        props.put("mail.smtp.port", ConfigManager.getEmailSmtpPort());
 
 
-        Session session = Session.getInstance(props,
-                new Authenticator() {
-                    protected PasswordAuthentication getPasswordAuthentication() {
-                        return new PasswordAuthentication(email, appPassword);
-                    }
-                }
-        );
+        Session session = Session.getInstance(props, smtpEmail.buildAuthenticator(email));
 
         Message message = new MimeMessage(session);
 

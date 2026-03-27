@@ -12,13 +12,13 @@ public class UserInterface {
         outputMessage(menu);
     }
 
-    public void Email() {
-        String email = "Email:";
+    public void email() {
+        String email = "Email: ";
         outputMessage(email);
     }
 
     public void appPassword() {
-        String password = "App password:";
+        String password = "App password: ";
         outputMessage(password);
     }
 
@@ -35,4 +35,5 @@ public class UserInterface {
     public void outputMessage(String message) {
         System.out.println(message);
     }
+
 }

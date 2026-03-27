@@ -6,11 +6,10 @@ You are the manager's AI assistant.
 Classify the email.
 
 Types:
-- QUESTION, create a short, polite response to the email, write it in summary.
+- QUESTION
 - MEETING
 - TASK
 - SPAM
-
 
 Return JSON:
 {
@@ -20,4 +19,5 @@ Return JSON:
   "task": "...",
   "summary": "..."
 }
+
 """

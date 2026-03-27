@@ -9,6 +9,7 @@ import java.util.concurrent.TimeUnit;
 
 public class ClientManager {
     public static  <T> T createClient(Class<T> service) {
+
         OkHttpClient okHttpClient = new OkHttpClient().newBuilder()
                 .connectTimeout(10, TimeUnit.SECONDS)
                 .writeTimeout(10, TimeUnit.SECONDS)

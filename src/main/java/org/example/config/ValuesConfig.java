@@ -17,7 +17,13 @@ public interface ValuesConfig extends Config {
     @Key("email.protocol")
     String emailProtocol();
 
-    @Key("email.protocol.default")
-    String emailProtocolDefault();
 
+    @Key("email.folder")
+    String emailFolder();
+
+    @Key("email.smtp.host")
+    String emailSmtpHost();
+
+    @Key("email.smtp.port")
+    String emailSmtpPort();
 }
