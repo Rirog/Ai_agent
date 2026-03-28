@@ -8,7 +8,7 @@ import javax.crypto.spec.SecretKeySpec;
 import java.util.Base64;
 
 public class HashingPassword {
-    private static final String KEY = "1234567890123456";
+    private static final String KEY = "1234567890123456"; // пока что так 
     private static final String CIPHER_TRANSFORMATION = "AES/CBC/PKCS5Padding";
     private static final String KEY_ALGORITHM = "AES";
     private static final byte[] IV = new byte[16];
