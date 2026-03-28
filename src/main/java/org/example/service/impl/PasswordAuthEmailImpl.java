@@ -14,7 +14,6 @@ public class PasswordAuthEmailImpl implements AuthEmail {
     @Override
     @SneakyThrows
     public void connectionEmail(Store store, String host, String email) {
-        String decrypt = HashingPassword.decrypt(password);
-        store.connect(host, email ,decrypt);
+        store.connect(host, email ,HashingPassword.decrypt(password));
     }
 }
