@@ -15,10 +15,9 @@ public class PasswordSmtpEmailImpl implements SmtpEmail {
     @Override
     @SneakyThrows
     public Authenticator buildAuthenticator(String email) {
-        String encrypt = HashingPassword.decrypt(password);
         return new Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(email, encrypt);
+                return new PasswordAuthentication(email, HashingPassword.decrypt(password));
             }
         };
     }
