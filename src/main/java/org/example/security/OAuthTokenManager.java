@@ -30,7 +30,9 @@ public class OAuthTokenManager {
     private static final List<String> SCOPES = List.of(
             "https://mail.google.com/",
             "https://www.googleapis.com/auth/gmail.modify",
-            "https://www.googleapis.com/auth/gmail.readonly"
+            "https://www.googleapis.com/auth/gmail.readonly",
+            "https://www.googleapis.com/auth/calendar",
+            "https://www.googleapis.com/auth/calendar.events"
     );
 
     @Getter
