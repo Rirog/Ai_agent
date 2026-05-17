@@ -1,12 +1,15 @@
 package org.example.service;
 
 import jakarta.mail.Message;
+
 import lombok.SneakyThrows;
 import org.example.dto.response.AiResult;
 import org.example.service.impl.ActionExecutorServiceImpl;
 import org.example.service.impl.AiServiceImpl;
 import org.example.ui.Input;
 import org.example.ui.UserInterface;
+
+import java.lang.reflect.Method;
 
 public class AiController {
 
@@ -57,7 +60,6 @@ public class AiController {
 
         for (Message msg : messages) {
 
-
             String prompt = emailParser.parse(msg);
 
             AiResult response = aiService.generateResponse(prompt);
@@ -68,19 +70,24 @@ public class AiController {
     }
 
 
+    @SneakyThrows
     private void handle(AiResult response, Message msg) {
-        switch (response.getType()) {
+        Class<?> executorClass = executor.getClass();
+        Method method = executorClass.getMethod(response.getType(), Message.class, AiResult.class);
+        method.invoke(executor, msg, response);
 
-            case "SPAM" -> executor.emailSpam(msg);
-
-            case "TASK" -> executor.emailTask(msg, response);
-
-            case "MEETING" -> executor.emailMeeting(msg, response);
-
-            case "QUESTION" -> executor.emailQuestion(msg, response, emailConfig);
-
-            default -> userInterface.outputErrorEmail();
-        }
+//        switch (response.getType()) {
+//
+//            case "SPAM" -> executor.emailSpam(msg, response);
+//
+//            case "TASK" -> executor.emailTask(msg, response);
+//
+//            case "MEETING" -> executor.emailMeeting(msg, response);
+//
+//            case "QUESTION" -> executor.emailQuestion(msg, response);
+//
+//            default -> userInterface.outputErrorEmail();
+//        }
     }
 
 }

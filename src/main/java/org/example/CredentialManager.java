@@ -1,48 +1,34 @@
 package org.example;
 
 import lombok.SneakyThrows;
-import org.example.security.HashingPassword;
 
 import java.io.*;
 import java.util.Properties;
 
 public class CredentialManager {
-    private static final String file = ".env";
+    private static final String CREDENTIALS_FILE = ".credentials";
 
     @SneakyThrows
     public static boolean exists() {
-        return new File(file).exists();
+        return new File(CREDENTIALS_FILE).exists();
     }
 
     @SneakyThrows
-    public static void save(String email, String password) {
-        String encrypted = HashingPassword.encrypt(password);
+    public static void save(String email) {
         Properties properties = new Properties();
-
         properties.setProperty("EMAIL", email);
-        properties.setProperty("PASSWORD", encrypted);
 
-        try (OutputStream out = new FileOutputStream(file)) {
-            properties.store(out, "Credentials");
+        try (OutputStream out = new FileOutputStream(CREDENTIALS_FILE)) {
+            properties.store(out, "OAuth Credentials");
         }
     }
 
-
     @SneakyThrows
-    public static String[] load(){
+    public static String loadEmail() {
         Properties properties = new Properties();
-
-        try (InputStream in = new FileInputStream(file)) {
+        try (InputStream in = new FileInputStream(CREDENTIALS_FILE)) {
             properties.load(in);
         }
-
-        String email = properties.getProperty("EMAIL");
-        String encryptedPassword = properties.getProperty("PASSWORD");
-
-        if (email == null || encryptedPassword == null) {
-            return null;
-        }
-
-        return new String[]{email, encryptedPassword};
+        return properties.getProperty("EMAIL");
     }
 }

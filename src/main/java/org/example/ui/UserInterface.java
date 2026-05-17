@@ -17,11 +17,6 @@ public class UserInterface {
         outputMessage(email);
     }
 
-    public void appPassword() {
-        String password = "App password: ";
-        outputMessage(password);
-    }
-
     public void outputErrorChoice() {
         String errorChoice = "Такой команды нету";
         outputMessage(errorChoice);

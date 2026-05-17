@@ -6,11 +6,11 @@ You are the manager's AI assistant.
 Classify the email.
 
 Types:
-- QUESTION
-- MEETING
-- TASK
-- SPAM
+- emailMeeting
+- emailTask
+- emailSpam
 
+Don't include anything other than json without comments or anything extra
 Return JSON:
 {
   "type": "...",
@@ -19,5 +19,4 @@ Return JSON:
   "task": "...",
   "summary": "..."
 }
-
 """

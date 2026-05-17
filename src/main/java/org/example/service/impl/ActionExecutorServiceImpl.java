@@ -10,13 +10,12 @@ import org.example.service.EmailConfig;
 import java.io.FileWriter;
 
 public class ActionExecutorServiceImpl implements ActionExecutorService {
+    private EmailConfig emailConfig;
 
-
-    @Override
-    @SneakyThrows
-    public void emailQuestion(Message message, AiResult aiResult, EmailConfig emailConfig) {
-        emailConfig.send(message.getFrom()[0].toString(), message.getSubject(), aiResult.getSummary());
+    public ActionExecutorServiceImpl(EmailConfig emailConfig) {
+        this.emailConfig = emailConfig;
     }
+
 
     @Override
     @SneakyThrows
@@ -54,8 +53,19 @@ public class ActionExecutorServiceImpl implements ActionExecutorService {
 
     @Override
     @SneakyThrows
-    public void emailSpam(Message message) {
+    public void emailSpam(Message message, AiResult aiResult) {
         message.setFlag(Flags.Flag.DELETED, true);
+        String fileName = "spamDeleted.txt"; // чисто вывод того что удалилось
+        String separator = "---------------\n";
+
+        try (FileWriter writer = new FileWriter(fileName)) {
+
+            writer.write(aiResult.getDate() + "\n");
+            writer.write(aiResult.getSummary() + "\n");
+
+            writer.write(separator);
+        }
+        emailSeen(message);
     }
 
     @SneakyThrows

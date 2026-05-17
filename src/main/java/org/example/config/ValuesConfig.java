@@ -21,9 +21,6 @@ public interface ValuesConfig extends Config {
     @Key("email.folder")
     String emailFolder();
 
-    @Key("email.smtp.host")
-    String emailSmtpHost();
-
-    @Key("email.smtp.port")
-    String emailSmtpPort();
+    @Key("email.mechanisms")
+    String emailMechanisms();
 }
