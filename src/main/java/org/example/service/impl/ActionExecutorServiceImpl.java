@@ -5,16 +5,10 @@ import jakarta.mail.Message;
 import lombok.SneakyThrows;
 import org.example.dto.response.AiResult;
 import org.example.service.ActionExecutorService;
-import org.example.service.EmailConfig;
 
 import java.io.FileWriter;
 
 public class ActionExecutorServiceImpl implements ActionExecutorService {
-    private EmailConfig emailConfig;
-
-    public ActionExecutorServiceImpl(EmailConfig emailConfig) {
-        this.emailConfig = emailConfig;
-    }
 
 
     @Override

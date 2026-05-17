@@ -21,7 +21,4 @@ public class AuthEmail {
         store.connect(host, email, accessToken);
     }
 
-    public String getAccessToken() {
-        return tokenManager.getAccessToken();
-    }
 }

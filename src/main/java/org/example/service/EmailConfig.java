@@ -23,9 +23,8 @@ public class EmailConfig implements GmailConfig {
     public Message[] connectionEmail() {
         Properties prop = new Properties();
         prop.put("mail.store.protocol", ConfigManager.getEmailProtocol());
-        prop.put("mail.imap.auth.mechanisms", ConfigManager.getEmailMechanisms());
-        prop.put("mail.imap.ssl.trust", "*");
-        prop.put("mail.imap.port", "993");
+        prop.put("mail.imaps.auth.mechanisms", ConfigManager.getEmailMechanisms());
+        prop.setProperty("mail.imap.ssl.trust", "*");
 
         Session session = Session.getInstance(prop);
 

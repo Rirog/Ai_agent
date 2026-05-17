@@ -21,7 +21,7 @@ public class Main {
 
         EmailConfig emailConfig = credentialUser(userInterface, input);
         EmailParser emailParser = new EmailParser();
-        ActionExecutorServiceImpl actionExecutorService = new ActionExecutorServiceImpl(emailConfig);
+        ActionExecutorServiceImpl actionExecutorService = new ActionExecutorServiceImpl();
 
         AiController aiController = new AiController(
                 aiService,

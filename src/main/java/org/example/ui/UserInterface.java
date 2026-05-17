@@ -22,11 +22,6 @@ public class UserInterface {
         outputMessage(errorChoice);
     }
 
-    public void outputErrorEmail() {
-        String errorChoice = "Неизвестный тип";
-        outputMessage(errorChoice);
-    }
-
     public void outputMessage(String message) {
         System.out.println(message);
     }

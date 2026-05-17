@@ -28,7 +28,9 @@ public class OAuthTokenManager {
     private static final int LOCAL_SERVER_PORT = 8888;
 
     private static final List<String> SCOPES = List.of(
-            "https://www.googleapis.com/auth/gmail.modify"
+            "https://mail.google.com/",
+            "https://www.googleapis.com/auth/gmail.modify",
+            "https://www.googleapis.com/auth/gmail.readonly"
     );
 
     @Getter
@@ -84,9 +86,4 @@ public class OAuthTokenManager {
         return credential.getAccessToken();
     }
 
-    @SneakyThrows
-    public static boolean hasTokenFor(String email) {
-        java.io.File tokenFile = new java.io.File(TOKENS_DIRECTORY + "/StoredCredential");
-        return tokenFile.exists();
-    }
 }
