@@ -6,6 +6,7 @@ import lombok.SneakyThrows;
 import org.example.dto.response.AiResult;
 import org.example.service.impl.ActionExecutorServiceImpl;
 import org.example.service.impl.AiServiceImpl;
+import org.example.service.config.EmailConfig;
 import org.example.ui.Input;
 import org.example.ui.UserInterface;
 

@@ -1,10 +1,13 @@
 package org.example;
 
 import lombok.SneakyThrows;
+import org.example.security.OAuthTokenManager;
 import org.example.service.*;
+import org.example.service.config.CalendarConfig;
 import org.example.service.impl.ActionExecutorServiceImpl;
 import org.example.service.impl.AiServiceImpl;
 import org.example.service.impl.AuthEmail;
+import org.example.service.config.EmailConfig;
 import org.example.ui.Input;
 import org.example.ui.UserInterface;
 
@@ -21,7 +24,13 @@ public class Main {
 
         EmailConfig emailConfig = credentialUser(userInterface, input);
         EmailParser emailParser = new EmailParser();
-        ActionExecutorServiceImpl actionExecutorService = new ActionExecutorServiceImpl();
+
+        OAuthTokenManager tokenManager = emailConfig.getAuthEmail().getTokenManager();
+
+        CalendarConfig calendarConfig = new CalendarConfig(tokenManager);
+
+        ActionExecutorServiceImpl actionExecutorService = new ActionExecutorServiceImpl(calendarConfig);
+
 
         AiController aiController = new AiController(
                 aiService,

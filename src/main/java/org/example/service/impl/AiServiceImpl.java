@@ -11,6 +11,8 @@ import org.example.dto.response.AiResult;
 import org.example.service.AiService;
 import retrofit2.Response;
 
+import java.time.LocalDate;
+
 public class AiServiceImpl implements AiService {
 
     private final String model = ConfigManager.getAiModelFast();
@@ -22,7 +24,14 @@ public class AiServiceImpl implements AiService {
         boolean stream = false;
         boolean think = false;
 
-        AiRequest aiRequest = new AiRequest(model, message, stream, think);
+        LocalDate today = LocalDate.now();
+        String currentDate = today.toString();
+
+        String prompt = String.format(
+                "Today's date: %s\n\nEmail to analyze:\n%s",
+                currentDate, message
+        );
+        AiRequest aiRequest = new AiRequest(model, prompt, stream, think);
 
         Response<AIResponse> response = ollamaApi.aiGenerate(aiRequest).execute();
         assert response.body() != null;

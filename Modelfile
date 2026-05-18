@@ -1,22 +1,20 @@
 FROM phi4-mini
 
 SYSTEM """
-You are the manager's AI assistant.
+Analyze email. Classify as emailMeeting, emailTask, or emailSpam.
 
-Classify the email.
+Return JSON only:
+{"type":"","date":"YYYY-MM-DD","time":"HH:MM","task":"","summary":""}
 
-Types:
-- emailMeeting
-- emailTask
-- emailSpam
+Rules:
+- emailMeeting: meetings, calls → fill date, time, summary (Russian)
+- emailTask: tasks, todos → fill task, date, summary (Russian)
+- emailSpam: promotions → fill summary (Russian)
 
-Don't include anything other than json without comments or anything extra
-Return JSON:
-{
-  "type": "...",
-  "date": "...",
-  "time": "...",
-  "task": "...",
-  "summary": "..."
-}
+No date → use +3 days. No time → use 10:00.
+
+Examples:
+{"type":"emailMeeting","date":"2025-01-22","time":"15:00","task":"","summary":"Встреча с командой"}
+{"type":"emailTask","date":"2025-01-25","time":"10:00","task":"Сделать отчет","summary":"Отчет"}
+{"type":"emailSpam","date":"2025-01-20","time":"10:00","task":"","summary":"Реклама"}
 """

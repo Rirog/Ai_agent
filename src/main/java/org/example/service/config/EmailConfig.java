@@ -1,8 +1,9 @@
-package org.example.service;
+package org.example.service.config;
 
 import jakarta.mail.*;
 import jakarta.mail.search.FlagTerm;
 import lombok.Data;
+import lombok.Getter;
 import lombok.SneakyThrows;
 import org.example.config.ConfigManager;
 import org.example.service.impl.AuthEmail;
@@ -10,15 +11,16 @@ import org.example.service.impl.AuthEmail;
 import java.util.Properties;
 
 @Data
-public class EmailConfig implements GmailConfig {
+public class EmailConfig {
     private Store store;
     private Folder inbox;
 
     private final String folder = ConfigManager.getEmailFolder();
     private final String email;
+
+    @Getter
     private final AuthEmail authEmail;
 
-    @Override
     @SneakyThrows
     public Message[] connectionEmail() {
         Properties prop = new Properties();
@@ -38,6 +40,8 @@ public class EmailConfig implements GmailConfig {
                 new FlagTerm(new Flags(Flags.Flag.SEEN), false)
         );
     }
+
+
 
     @SneakyThrows
     public void deletedSpam() {
