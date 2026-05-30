@@ -4,12 +4,15 @@ import com.google.api.client.util.DateTime;
 import com.google.api.services.calendar.Calendar;
 import com.google.api.services.calendar.model.Event;
 import com.google.api.services.calendar.model.EventDateTime;
+import com.google.api.services.tasks.Tasks;
+import com.google.api.services.tasks.model.Task;
 import jakarta.mail.Flags;
 import jakarta.mail.Message;
 import lombok.SneakyThrows;
 import org.example.dto.response.AiResult;
 import org.example.service.ActionExecutorService;
 import org.example.service.config.CalendarConfig;
+import org.example.service.config.TaskConfig;
 
 import java.io.FileWriter;
 import java.time.LocalDateTime;
@@ -18,15 +21,16 @@ import java.time.format.DateTimeFormatter;
 public class ActionExecutorServiceImpl implements ActionExecutorService {
 
     private final CalendarConfig calendarConfig;
+    private final TaskConfig taskConfig;
 
-    public ActionExecutorServiceImpl(CalendarConfig calendarConfig) {
+    public ActionExecutorServiceImpl(CalendarConfig calendarConfig, TaskConfig taskConfig) {
         this.calendarConfig = calendarConfig;
+        this.taskConfig = taskConfig;
     }
 
     @Override
     @SneakyThrows
     public void emailMeeting(Message message, AiResult aiResult) {
-        calendarConfig.initCalendar();
         Calendar calendar = calendarConfig.getCalendar();
 
 
@@ -59,45 +63,52 @@ public class ActionExecutorServiceImpl implements ActionExecutorService {
         calendar.events().insert(calendarId, event).execute();
 
         emailSeen(message);
-//
-//        String fileName = "meeting.txt";    // пока так, думаю что делать
-//        String separator = "---------------\n";
-//
-//        try (FileWriter writer = new FileWriter(fileName)) {
-//            writer.write(message.getSubject());
-//
-//            writer.write(aiResult.getDate() + "\n");
-//            writer.write(aiResult.getTime() + "\n");
-//
-//            writer.write(separator);
-//        }
-//        emailSeen(message);
     }
 
     @Override
     @SneakyThrows
     public void emailTask(Message message, AiResult aiResult) {
-        String fileName = "tasks.txt";
-        String separator = "---------------\n";
+        Tasks tasks = taskConfig.getTask();
+        Task task = new Task();
 
-        try (FileWriter writer = new FileWriter(fileName)) {
+        String title = message.getSubject();
 
-            writer.write(aiResult.getDate() + "\n");
-            writer.write(aiResult.getTask() + "\n");
+        if (aiResult.getSummary() != null &&
+                !aiResult.getSummary().isBlank()) {
 
-            writer.write(separator);
+            title = aiResult.getSummary();
         }
-        emailSeen(message);
+
+        task.setTitle(title);
+
+        if (aiResult.getTask() != null &&
+                !aiResult.getTask().isBlank()) {
+
+            task.setNotes(aiResult.getTask());
+        }
+
+        if (aiResult.getDate() != null &&
+                !aiResult.getDate().isBlank()) {
+
+            task.setDue(
+                    aiResult.getDate() + "T23:59:59.000Z"
+            );
+        }
+        tasks.tasks()
+                .insert("@default", task)
+                .execute();
+        emailSeen(message) ;
     }
+
 
     @Override
     @SneakyThrows
-    public void emailSpam(Message message, AiResult aiResult) {
+    public void emailSpam(Message message, AiResult aiResult) { // надо дорабоать спам не просто удаление
         message.setFlag(Flags.Flag.DELETED, true);
         String fileName = "spamDeleted.txt"; // чисто вывод того что удалилось
         String separator = "---------------\n";
 
-        try (FileWriter writer = new FileWriter(fileName)) {
+        try (FileWriter writer = new FileWriter(fileName, true)) {
 
             writer.write(aiResult.getDate() + "\n");
             writer.write(aiResult.getSummary() + "\n");
@@ -106,6 +117,13 @@ public class ActionExecutorServiceImpl implements ActionExecutorService {
         }
         emailSeen(message);
     }
+
+    @Override
+    @SneakyThrows
+    public void emailOther(Message message, AiResult aiResult){
+        emailSeen(message);
+    }
+
 
     @SneakyThrows
     private void emailSeen(Message message) {

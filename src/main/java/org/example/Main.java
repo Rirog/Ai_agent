@@ -4,6 +4,7 @@ import lombok.SneakyThrows;
 import org.example.security.OAuthTokenManager;
 import org.example.service.*;
 import org.example.service.config.CalendarConfig;
+import org.example.service.config.TaskConfig;
 import org.example.service.impl.ActionExecutorServiceImpl;
 import org.example.service.impl.AiServiceImpl;
 import org.example.service.impl.AuthEmail;
@@ -29,7 +30,9 @@ public class Main {
 
         CalendarConfig calendarConfig = new CalendarConfig(tokenManager);
 
-        ActionExecutorServiceImpl actionExecutorService = new ActionExecutorServiceImpl(calendarConfig);
+        TaskConfig taskConfig = new TaskConfig(tokenManager);
+
+        ActionExecutorServiceImpl actionExecutorService = new ActionExecutorServiceImpl(calendarConfig, taskConfig);
 
 
         AiController aiController = new AiController(

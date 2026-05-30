@@ -10,4 +10,5 @@ public interface ActionExecutorService {
     void emailTask(Message message, AiResult aiResult);
 
     void emailSpam(Message message, AiResult aiResult);
+    void emailOther(Message message, AiResult aiResult);
 }

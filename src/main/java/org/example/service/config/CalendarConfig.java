@@ -18,7 +18,7 @@ public class CalendarConfig {
     }
 
     @SneakyThrows
-    public void initCalendar() {
+    private void initCalendar() {
         calendar = CalendarService.getCalendarService(tokenManager);
     }
 }
