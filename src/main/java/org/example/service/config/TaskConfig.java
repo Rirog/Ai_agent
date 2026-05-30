@@ -1,7 +1,6 @@
 package org.example.service.config;
 
 import com.google.api.services.tasks.Tasks;
-import com.google.api.services.tasks.model.Task;
 import lombok.Getter;
 import lombok.SneakyThrows;
 import org.example.security.OAuthTokenManager;
