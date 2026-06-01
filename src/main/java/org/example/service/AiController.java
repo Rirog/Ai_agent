@@ -2,13 +2,13 @@ package org.example.service;
 
 import jakarta.mail.Message;
 
+import javafx.application.Platform;
+import javafx.stage.Stage;
 import lombok.SneakyThrows;
 import org.example.dto.response.AiResult;
 import org.example.service.impl.ActionExecutorServiceImpl;
 import org.example.service.impl.AiServiceImpl;
 import org.example.service.config.EmailConfig;
-import org.example.ui.Input;
-import org.example.ui.UserInterface;
 
 import java.lang.reflect.Method;
 
@@ -16,48 +16,25 @@ public class AiController {
 
 
     private final AiServiceImpl aiService;
-    private final Input input;
-    private final UserInterface userInterface;
     private final EmailConfig emailConfig;
     private final EmailParser emailParser;
     private final ActionExecutorServiceImpl executor;
 
     public AiController(AiServiceImpl aiService,
-                        Input input,
-                        UserInterface userInterface,
                         EmailConfig emailConfig,
                         EmailParser emailParser,
                         ActionExecutorServiceImpl executor) {
 
         this.aiService = aiService;
-        this.input = input;
-        this.userInterface = userInterface;
         this.emailConfig = emailConfig;
         this.emailParser = emailParser;
         this.executor = executor;
     }
 
-    public void start() {
-        boolean running = true;
-
-        while (running) {
-
-            userInterface.getMenu();
-            int choice = input.readChoice();
-
-            switch (choice) {
-                case 0 -> running = false;
-                case 1 -> workAi();
-                default -> userInterface.outputErrorChoice();
-            }
-        }
-        input.close();
-    }
-
     @SneakyThrows
-    private void workAi() {
-
+    public void workAi() {
         Message[] messages = emailConfig.connectionEmail();
+        if (messages == null || messages.length == 0) return;
 
         for (Message msg : messages) {
 
@@ -67,7 +44,6 @@ public class AiController {
 
             handle(response, msg);
         }
-        emailConfig.deletedSpam();
     }
 
 
@@ -76,19 +52,9 @@ public class AiController {
         Class<?> executorClass = executor.getClass();
         Method method = executorClass.getMethod(response.getType(), Message.class, AiResult.class);
         method.invoke(executor, msg, response);
-
-//        switch (response.getType()) {
-//
-//            case "SPAM" -> executor.emailSpam(msg, response);
-//
-//            case "TASK" -> executor.emailTask(msg, response);
-//
-//            case "MEETING" -> executor.emailMeeting(msg, response);
-//
-//            case "QUESTION" -> executor.emailQuestion(msg, response);
-//
-//            default -> userInterface.outputErrorEmail();
-//        }
     }
 
+    public void reloadApiKey() {
+        aiService.reloadApi();
+    }
 }

@@ -12,9 +12,9 @@ public class AuthEmail {
     @Getter
     private final OAuthTokenManager tokenManager;
 
-    public AuthEmail(String email) {
+    public AuthEmail() {
         tokenManager = new OAuthTokenManager();
-        tokenManager.authorize(email);
+        tokenManager.authorize();
     }
 
     @SneakyThrows

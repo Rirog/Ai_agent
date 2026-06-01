@@ -8,9 +8,6 @@ public interface ValuesConfig extends Config {
     @Key("base.url")
     String baseUrl();
 
-    @Key("ai.model.fast")
-    String aiModelFast();
-
     @Key("email.host")
     String emailHost();
 
@@ -23,4 +20,7 @@ public interface ValuesConfig extends Config {
 
     @Key("email.mechanisms")
     String emailMechanisms();
+
+    @Key("ollama.model")
+    String ollamaModel();
 }

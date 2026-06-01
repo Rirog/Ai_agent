@@ -9,10 +9,6 @@ public class ConfigManager {
         return factory.baseUrl();
     }
 
-    public static String getAiModelFast() {
-        return factory.aiModelFast();
-    }
-
     public static String getEmailHost() {
         return factory.emailHost();
     }
@@ -27,5 +23,9 @@ public class ConfigManager {
 
     public static String getEmailMechanisms() {
         return factory.emailMechanisms();
+    }
+
+    public static String getOllamaModel() {
+        return factory.ollamaModel();
     }
 }

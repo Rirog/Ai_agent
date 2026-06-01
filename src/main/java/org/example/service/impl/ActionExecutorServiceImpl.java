@@ -7,14 +7,15 @@ import com.google.api.services.calendar.model.EventDateTime;
 import com.google.api.services.tasks.Tasks;
 import com.google.api.services.tasks.model.Task;
 import jakarta.mail.Flags;
+import jakarta.mail.Folder;
 import jakarta.mail.Message;
+import jakarta.mail.Store;
 import lombok.SneakyThrows;
 import org.example.dto.response.AiResult;
 import org.example.service.ActionExecutorService;
 import org.example.service.config.CalendarConfig;
 import org.example.service.config.TaskConfig;
 
-import java.io.FileWriter;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -97,36 +98,47 @@ public class ActionExecutorServiceImpl implements ActionExecutorService {
         tasks.tasks()
                 .insert("@default", task)
                 .execute();
-        emailSeen(message) ;
+        emailSeen(message);
     }
 
 
     @Override
     @SneakyThrows
-    public void emailSpam(Message message, AiResult aiResult) { // надо дорабоать спам не просто удаление
-        message.setFlag(Flags.Flag.DELETED, true);
-        String fileName = "spamDeleted.txt"; // чисто вывод того что удалилось
-        String separator = "---------------\n";
-
-        try (FileWriter writer = new FileWriter(fileName, true)) {
-
-            writer.write(aiResult.getDate() + "\n");
-            writer.write(aiResult.getSummary() + "\n");
-
-            writer.write(separator);
-        }
-        emailSeen(message);
+    public void emailSpam(Message message, AiResult aiResult) {
+        moveMessage(message, "[Gmail]/Спам");
     }
 
     @Override
     @SneakyThrows
-    public void emailOther(Message message, AiResult aiResult){
-        emailSeen(message);
+    public void emailOther(Message message, AiResult aiResult) {
+        moveMessage(message, "Другое");
     }
 
 
     @SneakyThrows
     private void emailSeen(Message message) {
         message.setFlag(Flags.Flag.SEEN, true);
+    }
+
+    @SneakyThrows
+    private void moveMessage(Message message, String targetFolderName) {
+        try {
+            Folder source = message.getFolder();
+            Store store = source.getStore();
+            Folder target = store.getFolder(targetFolderName);
+
+            if (!target.exists()) {
+                target.create(Folder.HOLDS_MESSAGES);
+            }
+
+            source.copyMessages(new Message[]{message}, target);
+            message.setFlag(Flags.Flag.DELETED, true);
+
+            if (source.isOpen() && source.getMode() == Folder.READ_WRITE) {
+                source.expunge();
+            }
+        } catch (jakarta.mail.MessageRemovedException e) {
+            System.err.println("Письмо уже удалено: " + e.getMessage());
+        }
     }
 }

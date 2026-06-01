@@ -6,14 +6,13 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class AIResponse {
+public class AIResponseHistory {
 
-    @JsonProperty("response")
-    private String response;
+    @JsonProperty("message")
+    private MessageResponse message;
+
 }
