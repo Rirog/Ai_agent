@@ -37,16 +37,33 @@ public class AuthWindow {
 
 
     public void show() {
-        Label title = label("AI Email Agent", 24, "#EF5765", true);
+
+
+        Label title = new Label("AI Email Agent");
+        title.setStyle(
+                "-fx-font-size: 24px;" +
+                "-fx-text-fill: #EF5765;" +
+                "-fx-font-weight: bold;"
+        );
+
         Button retryLink = new Button("Закрыли окно авторизации?");
         retryLink.setStyle(
                 "-fx-background-color: transparent;" +
-                        "-fx-text-fill: #EF5765;" +
-                        "-fx-font-size: 12px;" +
-                        "-fx-underline: true;"
+                "-fx-text-fill: #EF5765;" +
+                "-fx-font-size: 12px;" +
+                "-fx-underline: true;"
         );
         retryLink.setVisible(false);
-        Button btn = button("Войти через Google", "#EF5765");
+        Button btn = new Button("Войти через Google");
+        btn.setStyle(
+                "-fx-background-color: #EF5765;" +
+                "-fx-text-fill: white;" +
+                "-fx-font-size: 14px;" +
+                "-fx-padding: 10px 20px;" +
+                "-fx-background-radius: 6;"
+        );
+        btn.setCursor(javafx.scene.Cursor.HAND);
+
         ProgressIndicator loader = new ProgressIndicator();
         loader.setVisible(false);
 
@@ -123,28 +140,8 @@ public class AuthWindow {
     }
 
 
-    private Label label(String text, double size, String color, boolean bold) {
-        var l = new Label(text);
-        l.setStyle(
-                "-fx-font-size: " + size + "px;" +
-                        "-fx-text-fill: " + color + (bold ? ";" +
-                        "-fx-font-weight: bold" : "") + ";"
-        );
-        return l;
-    }
 
-    private Button button(String text, String bg) {
-        var b = new Button(text);
-        b.setStyle(
-                "-fx-background-color: " + bg + ";" +
-                        "-fx-text-fill: white;" +
-                        "-fx-font-size: 14px;" +
-                        "-fx-padding: 10px 20px;" +
-                        "-fx-background-radius: 6;"
-        );
-        b.setCursor(javafx.scene.Cursor.HAND);
-        return b;
-    }
+
 
     @SneakyThrows
     private void onAuthSuccess(EmailConfig emailConfig, String email, AuthEmail authEmail) {
