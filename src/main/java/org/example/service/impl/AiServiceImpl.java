@@ -14,7 +14,6 @@ import org.example.security.ApiKeyManager;
 import org.example.service.AiService;
 import retrofit2.Response;
 
-import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;

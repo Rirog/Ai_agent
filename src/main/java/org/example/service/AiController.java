@@ -2,8 +2,6 @@ package org.example.service;
 
 import jakarta.mail.Message;
 
-import javafx.application.Platform;
-import javafx.stage.Stage;
 import lombok.SneakyThrows;
 import org.example.dto.response.AiResult;
 import org.example.service.impl.ActionExecutorServiceImpl;

@@ -24,7 +24,6 @@ import org.example.service.impl.AuthEmail;
 import java.awt.*;
 
 import java.net.URI;
-import java.net.UnknownHostException;
 
 
 public class AuthWindow {

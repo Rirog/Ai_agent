@@ -2,17 +2,13 @@ package org.example.service.config;
 
 import jakarta.mail.*;
 import jakarta.mail.search.FlagTerm;
-import javafx.application.Platform;
-import javafx.scene.control.Alert;
-import javafx.stage.Stage;
+
 import lombok.Data;
 import lombok.Getter;
 import lombok.SneakyThrows;
 import org.example.config.ConfigManager;
 import org.example.service.impl.AuthEmail;
 
-import java.net.SocketTimeoutException;
-import java.net.UnknownHostException;
 import java.util.Properties;
 
 @Data

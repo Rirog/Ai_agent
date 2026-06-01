@@ -206,7 +206,6 @@ public class MainWindow {
                         break;
                     } catch (Exception ex) {
                     System.err.println("Ошибка: " + ex.getMessage());
-                    ex.printStackTrace();
                 }
             }
             if (running) {

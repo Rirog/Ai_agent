@@ -1,7 +1,6 @@
 package org.example.client;
 
 import okhttp3.OkHttpClient;
-import okhttp3.logging.HttpLoggingInterceptor;
 import org.example.client.Interceptor.BaseIn;
 import org.example.config.ConfigManager;
 import retrofit2.Retrofit;
