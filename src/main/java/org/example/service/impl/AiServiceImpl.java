@@ -23,7 +23,7 @@ public class AiServiceImpl implements AiService {
     private final String model = ConfigManager.getOllamaModel();
     private OllamaApi ollamaApi;
 
-    private final static String promptTEst = """
+    private final static String promptContext = """
             You are an email classification assistant.
             Analyze email content and classify it into one of the following categories:
             - emailMeeting
@@ -136,7 +136,7 @@ public class AiServiceImpl implements AiService {
         );
         ArrayList<MessageRequest> messageRequests = new ArrayList<>(
                 Arrays.asList(
-                        new MessageRequest("user", promptTEst),
+                        new MessageRequest("user", promptContext),
                         new MessageRequest("user", prompt)
                 )
         );
