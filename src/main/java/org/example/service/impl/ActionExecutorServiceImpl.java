@@ -137,8 +137,6 @@ public class ActionExecutorServiceImpl implements ActionExecutorService {
             if (source.isOpen() && source.getMode() == Folder.READ_WRITE) {
                 source.expunge();
             }
-        } catch (jakarta.mail.MessageRemovedException e) {
-            System.err.println("Письмо уже удалено: " + e.getMessage());
-        }
+        } catch (jakarta.mail.MessageRemovedException ignored) {}
     }
 }

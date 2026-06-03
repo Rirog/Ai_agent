@@ -45,15 +45,15 @@ public class MainWindow {
         var emailLbl = new Label(" " + email);
         emailLbl.setStyle(
                 "-fx-font-size: 13px; " +
-                "-fx-text-fill: #EF5765;"
+                        "-fx-text-fill: #EF5765;"
         );
 
         Button settingsBtn = new Button("⚙");
         settingsBtn.setStyle(
                 "-fx-background-color: #e74c3c;" +
-                "-fx-font-size: 15px;" +
-                "-fx-text-fill: #FFFFFF;" +
-                "-fx-background-radius: 40%;"
+                        "-fx-font-size: 15px;" +
+                        "-fx-text-fill: #FFFFFF;" +
+                        "-fx-background-radius: 40%;"
 
         );
         settingsBtn.setCursor(javafx.scene.Cursor.HAND);
@@ -65,8 +65,8 @@ public class MainWindow {
                 alert.setContentText("Нельзя изменить API-ключ, пока агент работает.\nСначала остановите агента.");
                 alert.getDialogPane().setStyle(
                         "-fx-background-color: #f8f9fa;" +
-                        "-fx-font-size: 13px;" +
-                        "-fx-text-fill: #e74c3c;"
+                                "-fx-font-size: 13px;" +
+                                "-fx-text-fill: #e74c3c;"
                 );
                 alert.showAndWait();
                 return;
@@ -77,10 +77,10 @@ public class MainWindow {
         var logoutBtn = new Button("Выйти из аккаунта");
         logoutBtn.setStyle(
                 "-fx-background-color: transparent;" +
-                "-fx-text-fill: #e74c3c;" +
-                "-fx-font-size: 12px;" +
-                "-fx-underline: true;" +
-                "-fx-padding: 0 0 0 30"
+                        "-fx-text-fill: #e74c3c;" +
+                        "-fx-font-size: 12px;" +
+                        "-fx-underline: true;" +
+                        "-fx-padding: 0 0 0 30"
         );
         logoutBtn.setCursor(javafx.scene.Cursor.HAND);
         logoutBtn.setOnAction(e -> {
@@ -156,10 +156,10 @@ public class MainWindow {
     private void updateStyle(boolean on) {
         powerBtn.setStyle(
                 "-fx-background-color: " + (on ? "#EF5765" : "#42AAFF") + "; " +
-                "-fx-background-radius: 80%;" +
-                "-fx-text-fill: white;" +
-                "-fx-font-size: 18px;" +
-                "-fx-font-weight: 700;"
+                        "-fx-background-radius: 80%;" +
+                        "-fx-text-fill: white;" +
+                        "-fx-font-size: 18px;" +
+                        "-fx-font-weight: 700;"
         );
         powerBtn.setText((on ? "ВКЛ" : "ВЫКЛ"));
     }
@@ -184,28 +184,28 @@ public class MainWindow {
                     break;
                 } catch (InvalidApiKeyException ex) {
 
-                        running = false;
+                    running = false;
 
-                        Platform.runLater(() -> {
+                    Platform.runLater(() -> {
 
-                            updateStyle(false);
+                        updateStyle(false);
 
-                            showAlert(
-                                    Alert.AlertType.ERROR,
-                                    "Ошибка API ключа",
-                                    "Введите корректный API ключ."
-                            );
+                        showAlert(
+                                Alert.AlertType.ERROR,
+                                "Ошибка API ключа",
+                                "Введите корректный API ключ."
+                        );
 
-                            String newKey = ApiKeyDialog.showDialog();
+                        String newKey = ApiKeyDialog.showDialog();
 
-                            if (newKey != null && !newKey.isBlank()) {
-                                ApiKeyManager.changeApiKey(newKey);
-                                aiController.reloadApiKey();
-                            }
-                        });
-                        break;
-                    } catch (Exception ex) {
-                    System.err.println("Ошибка: " + ex.getMessage());
+                        if (newKey != null && !newKey.isBlank()) {
+                            ApiKeyManager.changeApiKey(newKey);
+                            aiController.reloadApiKey();
+                        }
+                    });
+                    break;
+                } catch (Exception ex) {
+                    ex.printStackTrace();
                 }
             }
             if (running) {
