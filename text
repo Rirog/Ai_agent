@@ -1,8 +1,0 @@
-docker exec ollama ollama pull phi4-mini
-docker cp Modelfile ollama:./Modelfile
-docker exec ollama ollama create Ai-assistant -f ./Modelfile
-docker exec ollama ollama list
-docker exec ollama ollama rm Ai-Assistant
-
-
-
