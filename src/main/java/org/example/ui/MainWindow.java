@@ -13,6 +13,7 @@ import org.example.security.OAuthTokenManager;
 import org.example.service.AiController;
 import org.example.service.config.EmailConfig;
 import org.example.utils.NetworkUtils;
+import java.io.InterruptedIOException;
 
 public class MainWindow {
     private final Stage stage;
@@ -179,10 +180,9 @@ public class MainWindow {
                     }
                     aiController.workAi();
                     Thread.sleep(60000);
-                } catch (InterruptedException e) {
-
+                } catch (InterruptedException  ex ) {
                     break;
-                } catch (InvalidApiKeyException ex) {
+                } catch (InvalidApiKeyException | IllegalArgumentException ex) {
 
                     running = false;
 
@@ -205,6 +205,9 @@ public class MainWindow {
                     });
                     break;
                 } catch (Exception ex) {
+                    if (ex instanceof InterruptedIOException) {
+                        break;
+                    }
                     ex.printStackTrace();
                 }
             }
@@ -229,7 +232,9 @@ public class MainWindow {
 
     private void stopWorker() {
         running = false;
+
         if (worker != null) worker.interrupt();
+
     }
 
     private void logout() {

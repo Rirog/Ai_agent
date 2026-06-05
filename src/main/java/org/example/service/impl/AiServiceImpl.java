@@ -70,9 +70,37 @@ public class AiServiceImpl implements AiService {
             Fill:
             - summary only
             emailOther:
-            - all other emails
-            Fill:
-            - summary only
+              - all other emails
+            For emailOther:
+            Use "summary" as the label name.
+            Allowed labels:
+            - Уведомления
+            - Отчёты
+            - Важное
+            - Другое
+            Examples:
+            System notification, service notification, status update
+            → "Уведомления"
+            Monthly report, weekly report, analytics, statistics
+            → "Отчёты"
+            Important information from management, urgent corporate information,
+            critical project updates, important client messages
+            → "Важное"
+            Any email that does not clearly belong to the categories above
+            → "Другое"
+            For emailOther:
+            - date = ""
+            - time = ""
+            - task = ""
+            - summary = Russian label name
+            If type = emailOther:
+            Do NOT generate a title.
+            Do NOT generate a short description.
+            Return only one of:
+            - Уведомления
+            - Отчёты
+            - Важное
+            - Другое
             Date format:
             YYYY-MM-DD
             Time format:
@@ -100,19 +128,13 @@ public class AiServiceImpl implements AiService {
             - next Friday
             - next Saturday
             - next Sunday
-            
             Convert them to an absolute date using Today's date.
-            
             Examples:
-            
             Today: 2026-05-31
-            
             "tomorrow"
             → 2026-06-01
-            
             "next Monday"
             → 2026-06-01
-            
             Always return the converted date in YYYY-MM-DD format.
             Always return valid JSON.
             """;

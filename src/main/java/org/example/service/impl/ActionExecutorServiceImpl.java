@@ -6,10 +6,7 @@ import com.google.api.services.calendar.model.Event;
 import com.google.api.services.calendar.model.EventDateTime;
 import com.google.api.services.tasks.Tasks;
 import com.google.api.services.tasks.model.Task;
-import jakarta.mail.Flags;
-import jakarta.mail.Folder;
-import jakarta.mail.Message;
-import jakarta.mail.Store;
+import jakarta.mail.*;
 import lombok.SneakyThrows;
 import org.example.dto.response.AiResult;
 import org.example.service.ActionExecutorService;
@@ -63,7 +60,7 @@ public class ActionExecutorServiceImpl implements ActionExecutorService {
         String calendarId = "primary";
         calendar.events().insert(calendarId, event).execute();
 
-        emailSeen(message);
+        moveMessage(message, "Встречи");
     }
 
     @Override
@@ -98,7 +95,7 @@ public class ActionExecutorServiceImpl implements ActionExecutorService {
         tasks.tasks()
                 .insert("@default", task)
                 .execute();
-        emailSeen(message);
+        moveMessage(message, "Задачи");
     }
 
 
@@ -111,7 +108,7 @@ public class ActionExecutorServiceImpl implements ActionExecutorService {
     @Override
     @SneakyThrows
     public void emailOther(Message message, AiResult aiResult) {
-        moveMessage(message, "Другое");
+        moveMessage(message, aiResult.getSummary());
     }
 
 
@@ -137,6 +134,6 @@ public class ActionExecutorServiceImpl implements ActionExecutorService {
             if (source.isOpen() && source.getMode() == Folder.READ_WRITE) {
                 source.expunge();
             }
-        } catch (jakarta.mail.MessageRemovedException ignored) {}
+        } catch (jakarta.mail.MessageRemovedException | FolderNotFoundException ignored) {}
     }
 }
