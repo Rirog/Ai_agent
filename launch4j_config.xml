@@ -3,7 +3,7 @@
   <dontWrapJar>false</dontWrapJar>
   <headerType>gui</headerType>
   <jar>C:\Users\Admin\Desktop\Ai_agent\out\artifacts\Ai_agent_jar\Ai_agent.jar</jar>
-  <outfile>C:\Users\Admin\Desktop\Email_agent.exe</outfile>
+  <outfile>C:\Users\Admin\Desktop\Email-agent.exe</outfile>
   <errTitle/>
   <cmdLine/>
   <chdir>.</chdir>
@@ -15,10 +15,10 @@
   <manifest/>
   <icon>C:\Users\Admin\Downloads\1904660-email-envelope-letter-mail-message-post-send_122510.ico</icon>
   <jre>
-    <path>%JAVA_HOME%;%PATH%</path>
+    <path>C:\Users\Admin\Desktop\Ai_agent\jdk-17.0.12-full</path>
     <requiresJdk>true</requiresJdk>
-    <requires64Bit>false</requires64Bit>
-    <minVersion>17.0.12</minVersion>
+    <requires64Bit>true</requires64Bit>
+    <minVersion/>
     <maxVersion/>
   </jre>
 </launch4jConfig>
