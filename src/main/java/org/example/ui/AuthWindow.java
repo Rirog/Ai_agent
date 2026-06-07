@@ -138,11 +138,6 @@ public class AuthWindow {
         alert.getButtonTypes().setAll(ButtonType.OK);
         alert.showAndWait();
     }
-
-
-
-
-
     @SneakyThrows
     private void onAuthSuccess(EmailConfig emailConfig, String email, AuthEmail authEmail) {
         AiController aiController = new AiController(

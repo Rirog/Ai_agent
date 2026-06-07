@@ -23,7 +23,9 @@ import java.util.Objects;
 public class OAuthTokenManager {
     private static final JsonFactory JSON_FACTORY = GsonFactory.getDefaultInstance();
 
-    private static final String TOKENS_DIRECTORY = "tokens";
+    private static final String TOKENS_DIRECTORY = System.getProperty("user.home") +
+            File.separator + ".ai_agent" +
+            File.separator + "tokens";
 
     private static final int LOCAL_SERVER_PORT = 8889;
 
@@ -40,7 +42,16 @@ public class OAuthTokenManager {
     private Credential credential;
 
     @SneakyThrows
+    private void ensureTokensDirectoryExists() {
+        File dir = new File(TOKENS_DIRECTORY);
+        if (!dir.exists()) {
+            dir.mkdirs();
+        }
+    }
+
+    @SneakyThrows
     public String getAuthorizationUrl() {
+        ensureTokensDirectoryExists();
         Reader reader = new InputStreamReader(
                 Objects.requireNonNull(getClass().getResourceAsStream("/credentials.json"))
         );
